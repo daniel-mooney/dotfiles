@@ -1,0 +1,20 @@
+-- Easy renaming of a variables
+-- TODO: Option to make rename local to a function.
+-- TODO: Nicer renaming interface
+return {
+	"smjonas/inc-rename.nvim",
+	cmd = "IncRename",
+	keys = {
+		{
+			"<leader>rn",
+			function()
+				return ":IncRename " .. vim.fn.expand("<cword>")
+			end,
+			desc = "Incremental rename",
+			mode = "n",
+			noremap = true,
+			expr = true,
+		},
+	},
+	config = true,
+}

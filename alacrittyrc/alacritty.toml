@@ -1,0 +1,39 @@
+general.import = [
+"keybindings.toml",
+"colorthemes/catppuccin-macchiato.toml",
+]
+
+# Environment Variables =======================================================
+[env]
+TERM = "xterm-256color"
+
+# Window ======================================================================
+[window]
+title = "Terminal"
+startup_mode = "Maximized"
+
+opacity = 0.95
+decorations = "None"
+padding = { x = 10, y = 10}
+
+# Fonts =======================================================================
+[font]
+size = 12
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+style = "Regular"
+
+# Cursor ======================================================================
+[cursor]
+blink_interval = 750
+blink_timeout = 0
+
+[cursor.style]
+shape = "Block"
+blinking = "On"
+
+# Terminal ====================================================================
+[terminal.shell]
+program = "/bin/bash"
+

@@ -1,0 +1,16 @@
+[keyboard]
+bindings = [
+# Map Ctrl + Shift to Unicode keys so they can be used in NeoVim
+	{ key = "a", mods = "Control | Shift", chars = "\u0100"},
+	{ key = "b", mods = "Control | Shift", chars = "\u0101"},
+# Do not use Ctrl+Shift+C. This is copy.
+	# { key = "c", mods = "Control | Shift", chars = "\u0102"},
+	{ key = "d", mods = "Control | Shift", chars = "\u0103"},
+	{ key = "e", mods = "Control | Shift", chars = "\u0104"},
+	{ key = "f", mods = "Control | Shift", chars = "\u0105"},
+	{ key = "g", mods = "Control | Shift", chars = "\u0106"},
+	{ key = "h", mods = "Control | Shift", chars = "\u0107"},
+	{ key = "i", mods = "Control | Shift", chars = "\u0108"},
+	{ key = "j", mods = "Control | Shift", chars = "\u0109"},
+	{ key = "k", mods = "Control | Shift", chars = "\u010A"},
+]
