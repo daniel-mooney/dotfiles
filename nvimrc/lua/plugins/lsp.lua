@@ -25,7 +25,8 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					-- "rust_analyzer", 			-- Mason rust-analyzer does notmatch toolchain
-					"clangd",		-- C/C++
+					"clangd",		-- C/C++,
+					"cmake",
 					--"pyright",
 				},
 			})
@@ -46,6 +47,9 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("cmake", {
+				capabilities = capabilities,
+			})
 			-- Issues:
 			-- 	1. Inlay hints only load after first edit and no on file open.
 			-- Force rust-analyzer to rustup (NOT Mason)
@@ -74,7 +78,12 @@ return {
 			})
 
 			-- Enable them
-			vim.lsp.enable({ "lua_ls", "clangd", "rust_analyzer" })
+			vim.lsp.enable({
+				"lua_ls",
+				"clangd",
+				"cmake",
+				"rust_analyzer",
+			})
 
 			-- vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { silent = true })
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "vim.lsp.buf.definition()" })
