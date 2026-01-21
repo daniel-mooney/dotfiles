@@ -1,0 +1,13 @@
+add_newline = false
+
+[line_break]
+disabled = true			# Prompt and command on the same line
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+truncation_symbol = '.../'
+use_logical_path = true
+
+[cmd_duration]
+disabled = true			# Don't show how long the last command took. I don't care.
