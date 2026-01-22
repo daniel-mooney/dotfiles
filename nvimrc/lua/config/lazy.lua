@@ -32,6 +32,7 @@ require("lazy").setup({
 		require('plugins.lualine'),
 		require('plugins.fterm'),
 		require('plugins.treesitter-context'),
+		require('plugins.neogen'),
 		-- require('plugins.trouble'),
 	}
 })
