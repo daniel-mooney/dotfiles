@@ -27,7 +27,7 @@ return {
 					-- "rust_analyzer", 			-- Mason rust-analyzer does notmatch toolchain
 					"clangd",		-- C/C++,
 					"cmake",
-					--"pyright",
+					"basedpyright",
 				},
 			})
 			-- Configure servers using Neovim 0.11+ API
@@ -41,6 +41,24 @@ return {
 						telemetry = { enable = false },
 					},
 				},
+			})
+
+			vim.lsp.config("basedpyright", {
+				capabilities = capabilities,
+				settings = {
+					basedpyright = {
+						analysis = {
+							autoSearchPaths = true,
+							diagnosticMode = "openFilesOnly",
+							useLibraryCodeForTypes = true,
+							typeCheckingMode = "off",
+							inlayHints = {
+								variableTypes = true,
+								callArgumentNames = false,
+							}
+						}
+					}
+				}
 			})
 
 			vim.lsp.config("clangd", {
@@ -83,6 +101,7 @@ return {
 				"clangd",
 				"cmake",
 				"rust_analyzer",
+				"basedpyright",
 			})
 
 			-- vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { silent = true })
