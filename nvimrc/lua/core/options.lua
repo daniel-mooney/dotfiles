@@ -42,6 +42,10 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 	end
 })
 
+---------------------------------------
+-- Navigation
+---------------------------------------
+vim.opt.splitright = true
 
 ---------------------------------------
 -- Diagnostics
