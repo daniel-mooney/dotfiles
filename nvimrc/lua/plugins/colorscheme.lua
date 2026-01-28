@@ -1,7 +1,7 @@
 return {
 	{
 		"folke/tokyonight.nvim",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {},
 		config = function()
@@ -18,7 +18,7 @@ return {
 				},
 			})
 			-- set the color theme
-			vim.cmd.colorscheme("tokyonight")
+			-- vim.cmd.colorscheme("tokyonight")
 
 			-- Customizations
 			-- vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff" })				-- For absolute line numbers
@@ -29,6 +29,32 @@ return {
 
 			-- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
 		end
-	}
-    
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		lazy = false,
+		priority = 1000,
+		config = function ()
+			require("catppuccin").setup({
+				flavour = "mocha",
+				styles = {
+					comments = { "italic" },
+					strings = { "italic" },
+				},
+				dim_inactive = {
+					enabled = false,
+					shade = "dark",
+					percentage = 0.15
+				},
+			})
+
+			vim.cmd.colorscheme("catppuccin")
+
+
+			-- For relative line numbers
+			vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#aba69f" })
+			vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#aba69f" })
+		end
+	},
 }
