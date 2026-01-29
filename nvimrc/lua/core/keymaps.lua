@@ -27,51 +27,25 @@ vim.keymap.set("n", "<C-k>", ":m .-2<CR>==", { remap = true, desc = "Move line u
 -- Comments
 -- Toggles a comment on a line if it contains text, else creates a new comment.
 local function comment_or_insert()
-	local bufnr = 0
-	local row = vim.api.nvim_win_get_cursor(0)[1] -- 1-based
 	local line = vim.api.nvim_get_current_line()
 
-	-- Empty/whitespace-only line: insert comment leader with proper indent, then startinsert!.
-	if line:match("^%s*$") then
-		local indent = line:match("^(%s*)") or ""
-		if indent == "" then
-			-- Use Neovim's indentexpr/cindent/etc if available (falls back to 0)
-			local ind = vim.fn.indent(row)
-			if ind > 0 then indent = string.rep(" ", ind) end
-		end
-
-		local cs = vim.bo[bufnr].commentstring
-		if not cs or cs == "" or not cs:find("%%s") then
-			-- No usable commentstring; just indent + start typing
-			vim.api.nvim_set_current_line(indent)
-			vim.api.nvim_win_set_cursor(0, { row, #indent })
-			vim.cmd("startinsert!")
-			return
-		end
+	if line:match('^%s*$') then
+		local cs = vim.bo.commentstring
+		if cs == "" or not cs:find("%%s") then cs = "# %s" end
 
 		local left, right = cs:match("^(.-)%%s(.-)$")
-		left = (left or ""):gsub("%s+$", "")
-		right = (right or ""):gsub("^%s+", "")
+		local keys = vim.api.nvim_replace_termcodes(
+			string.format([["_cc%s %s]], left, right), true, false, true
+		)
+		vim.api.nvim_feedkeys(keys, "n", false)
 
-		if right ~= "" then
-			-- Block-style: put cursor between left and right
-			local text = indent .. left .. " " .. right
-			vim.api.nvim_set_current_line(text)
-			vim.api.nvim_win_set_cursor(0, { row, #indent + #left + 1 })
-			vim.cmd("startinsert!")
-		else
-			-- Line-style: add trailing space and type
-			local text = indent .. left .. " "
-			vim.api.nvim_set_current_line(text)
-			vim.api.nvim_win_set_cursor(0, { row, #text })
-			vim.cmd("startinsert!")
+		if #right > 0 then
+			local back = vim.api.nvim_replace_termcodes(string.rep("<Left>", #right + 1), true, false, true)
+			vim.api.nvim_feedkeys(back, "n", false)
 		end
-		return
+	else
+		vim.cmd("normal gc_")
 	end
-
-	-- Non-empty line: delegate to your plugin mapping ("gc_") via a *remappable* normal-mode call.
-	-- Using :normal! bypasses mappings; we want mappings, so use :normal (not !).
-	vim.cmd("normal gc_")
 end
 
 vim.keymap.set("n", "<leader>;", comment_or_insert, { remap = true, desc = "Toggle comment" })
@@ -97,6 +71,16 @@ vim.keymap.set("n", "<leader>x", ":Ex<CR>", { desc = "Open netrw in the current 
 vim.keymap.set("n", "<leader>X", function ()
 	vim.cmd("Explore " .. vim.fn.getcwd())
 end, { desc = "Open netrw in the current working directory" })
+
+-- Jump to indentation level on empty line
+vim.keymap.set("n", "I", function ()
+	if vim.fn.getline('.'):match('^%s*$') then
+		return [["_cc]]
+	else
+		return "I"
+	end
+end, { expr = true, silent = true, desc = "Smart indenton empty line, else normal I" })
+
 ------------------------------------
 -- Diagnostics
 ------------------------------------
