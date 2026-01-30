@@ -52,6 +52,13 @@ vim.keymap.set("n", "<leader>;", comment_or_insert, { remap = true, desc = "Togg
 vim.keymap.set("x", "<leader>;", "gcgv", { remap = true, desc = "Toggle comment" })		-- Stays in visual block selection mode
 vim.keymap.set("n", "gcc", "<Nop>")
 
+vim.keymap.set("n", "<CR>", function ()
+	vim.api.nvim_put({""}, "l", true, false)
+end, { desc = "Insert new line below the cursor" })
+
+vim.keymap.set("n", "<leader><CR>", function ()
+	vim.api.nvim_put({""}, "l", false, false)
+end, { desc = "Insert new line below the cursor" })
 ------------------------------------
 -- Navigation
 ------------------------------------
