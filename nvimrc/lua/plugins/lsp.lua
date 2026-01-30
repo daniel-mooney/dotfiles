@@ -109,6 +109,12 @@ return {
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "vim.lsp.buf.declaration()" })
 
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "vim.lsp.buf.rename()" })
+
+			vim.keymap.set("n", "<leader>li", function()
+				local bufnr = vim.api.nvim_get_current_buf()
+				local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+				vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+			end, { desc = "Toggle inlay hints" })
 		end
 	},
 
