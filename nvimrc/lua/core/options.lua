@@ -72,3 +72,8 @@ vim.diagnostic.config({
 -- Buffers + Registers
 -----------------------------------
 -- vim.o.clipboard = 'unnamedplus'		-- Sync clipboard between OS and Neovim (default: ''). Requires `xclip` installed.
+
+--  Autoupdated buffers when re-focusing nvim. Important to track changes made externally
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  command = "checktime",
+})
