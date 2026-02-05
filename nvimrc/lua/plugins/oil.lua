@@ -15,6 +15,9 @@ return {
 		local oil = require('oil')
 		oil.setup({
 			default_file_explorer = true,
+			view_options = {
+				show_hidden = true
+			}
 			-- TODO: Explicitly have oil open preview on right, rather than relying on nvim default split to right
 			-- float = {
 			-- 	preview_split = "right",

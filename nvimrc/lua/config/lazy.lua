@@ -28,7 +28,7 @@ require("lazy").setup({
 		require('plugins.vim_visual_multi'),
 		require('plugins.indent_blankline'),
 		require('plugins.which_key'),
-		require('plugins.git_integrations'),
+		require('plugins.git'),
 		require('plugins.lualine'),
 		require('plugins.fterm'),
 		require('plugins.treesitter-context'),
