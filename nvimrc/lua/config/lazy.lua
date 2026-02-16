@@ -34,6 +34,7 @@ require("lazy").setup({
 		require('plugins.treesitter-context'),
 		require('plugins.neogen'),
 		require('plugins.oil'),
-		require('plugins.vim-illuminate')
+		require('plugins.vim-illuminate'),
+		require('plugins.markdown'),
 	}
 })
