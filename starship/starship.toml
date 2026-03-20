@@ -4,7 +4,7 @@ add_newline = false
 disabled = true			# Prompt and command on the same line
 
 [directory]
-truncation_length = 4
+truncation_length = 0
 truncate_to_repo = true
 truncation_symbol = '.../'
 use_logical_path = true
