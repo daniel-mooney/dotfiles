@@ -12,7 +12,6 @@ vim.keymap.set({"n", "v"}, "<leader>Y", [["+Y]])	-- Yank line
 vim.keymap.set("n", "<leader>p", [["+p]])			-- Put
 
 -- Registerless operations
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])	-- Delete
 vim.keymap.set("x", "<leader>P", [["_dP]])			-- Put
 vim.keymap.set("n", "x", '"_x')						-- Char into the void
 
