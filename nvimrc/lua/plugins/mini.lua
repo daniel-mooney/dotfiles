@@ -42,16 +42,20 @@ return {
 				return MiniPairs.cr()
 			end
 			local item = info.items[selected + 1]
-
-			-- mini.completion sets item.kind to a string like "Function", "Method", "Constructor"
-			local kind = item and item.kind or ''
-			-- strip any surrounding whitespace/icons that mini.icons may inject
-			kind = kind:match('%a+') or ''
+			local kind = (item and item.kind or ''):match('[%a]+$') or ''
 
 			if kind == 'Function' or kind == 'Method' or kind == 'Constructor' then
-				vim.schedule(function()
-					vim.api.nvim_feedkeys('()' .. vim.keycode('<Left>'), 'n', false)
-				end)
+				local clients = vim.lsp.get_clients({ bufnr = 0 })
+				local has_clangd = vim.iter(clients):any(function(c) return c.name == 'clangd' end)
+				local has_rust_analyzer = vim.iter(clients):any(function(c) return c.name == 'rust_analyzer' end)
+				local is_macro = (item.word or ''):match('!$') ~= nil
+
+				-- Hack around clangd and rust macros always sending parentheses.
+				if not has_clangd and not (has_rust_analyzer and is_macro) then
+					vim.schedule(function()
+						vim.api.nvim_feedkeys('()' .. vim.keycode('<Left>'), 'n', false)
+					end)
+				end
 			end
 			return vim.keycode('<C-y>')
 		end
