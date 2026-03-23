@@ -12,8 +12,9 @@ return {
 		------------------------------
 		--- Completion
 		------------------------------
-		require('mini.icons').setup({})
 		require('mini.snippets').setup({})
+		require('mini.icons').setup({})
+		MiniIcons.tweak_lsp_kind()
 
 		require('mini.completion').setup({
 			delay = {
@@ -37,23 +38,23 @@ return {
 		local function cr_action()
 			local info = vim.fn.complete_info({ 'selected', 'items' })
 			local selected = info.selected
-
 			if selected == -1 then
 				return MiniPairs.cr()
 			end
-
 			local item = info.items[selected + 1]
-			local kind = item and item.kind or ''
 
-			if kind == 'Function' or kind == 'Method' then
+			-- mini.completion sets item.kind to a string like "Function", "Method", "Constructor"
+			local kind = item and item.kind or ''
+			-- strip any surrounding whitespace/icons that mini.icons may inject
+			kind = kind:match('%a+') or ''
+
+			if kind == 'Function' or kind == 'Method' or kind == 'Constructor' then
 				vim.schedule(function()
 					vim.api.nvim_feedkeys('()' .. vim.keycode('<Left>'), 'n', false)
 				end)
 			end
-
 			return vim.keycode('<C-y>')
 		end
-
 		vim.keymap.set('i', '<CR>', cr_action, { expr = true })
 		-- Highlight current function parameter
 		vim.api.nvim_set_hl(0, 'MiniCompletionActiveParameter', {
