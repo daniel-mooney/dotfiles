@@ -23,7 +23,6 @@ require("lazy").setup({
 		require('plugins.lsp'),
 		require('plugins.virt_column'),
 		require('plugins.lazydev'),
-		require('plugins.nvim_autopairs'),
 		require('plugins.telescope'),
 		require('plugins.vim_visual_multi'),
 		require('plugins.indent_blankline'),
@@ -35,6 +34,6 @@ require("lazy").setup({
 		require('plugins.neogen'),
 		require('plugins.oil'),
 		require('plugins.vim-illuminate'),
-		require('plugins.markdown'),
+		require('plugins.mini'),
 	}
 })
