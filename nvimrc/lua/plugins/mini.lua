@@ -2,6 +2,13 @@ return {
 	'nvim-mini/mini.nvim',
 	version = false,
 	config = function ()
+		-------------------------------
+		--- Misc
+		-------------------------------
+		require('mini.pairs').setup({})
+		require('mini.splitjoin').setup({})
+		require('mini.move').setup({})
+
 		------------------------------
 		--- Completion
 		------------------------------
@@ -10,7 +17,7 @@ return {
 
 		require('mini.completion').setup({
 			delay = {
-				completion = 0,
+				completion = 100,
 				info = 100,
 				signature = 50,
 			}
@@ -32,7 +39,7 @@ return {
 			local selected = info.selected
 
 			if selected == -1 then
-				return '\r'
+				return MiniPairs.cr()
 			end
 
 			local item = info.items[selected + 1]
@@ -55,11 +62,5 @@ return {
 			bold = true,
 		})
 
-		-------------------------------
-		--- Misc
-		-------------------------------
-		require('mini.pairs').setup({})
-		require('mini.splitjoin').setup({})
-		require('mini.move').setup({})
 	end
 }
