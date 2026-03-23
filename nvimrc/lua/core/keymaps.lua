@@ -15,13 +15,6 @@ vim.keymap.set("n", "<leader>p", [["+p]])			-- Put
 vim.keymap.set("x", "<leader>P", [["_dP]])			-- Put
 vim.keymap.set("n", "x", '"_x')						-- Char into the void
 
--- Move highlighted blocks up and down
-vim.keymap.set("v", "<NL>", ":m '>+1<CR>gv=gv")		-- '> is line number of the end of the selection
-vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
-
--- Move current line down / up (normal mode)
-vim.keymap.set("n", "<NL>", ":m .+1<CR>==", { remap = true, desc = "Move line down" })	-- <NL> is <C-j>
-vim.keymap.set("n", "<C-k>", ":m .-2<CR>==", { remap = true, desc = "Move line up" })
 
 -- Comments
 -- Toggles a comment on a line if it contains text, else creates a new comment.
