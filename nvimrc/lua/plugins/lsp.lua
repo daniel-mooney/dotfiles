@@ -62,6 +62,10 @@ return {
 
 			vim.lsp.config("clangd", {
 				capabilities = capabilities,
+				cmd = {
+					"clangd",
+					"--function-arg-placeholders=false",
+				}
 			})
 
 			vim.lsp.config("cmake", {
@@ -82,7 +86,7 @@ return {
 						},
 						completion = {
 							callable = {
-								snippets = "add_parentheses",		-- Don't send placeholder arg names
+								snippets = "none",
 							},
 						},
 						inlayHints = {
