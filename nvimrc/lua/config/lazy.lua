@@ -35,5 +35,6 @@ require("lazy").setup({
 		require('plugins.oil'),
 		require('plugins.vim-illuminate'),
 		require('plugins.mini'),
+		require('plugins.copilot'),
 	}
 })

@@ -1,7 +1,10 @@
 -- Shows a status line on the bottom of the page
 return {
 	'nvim-lualine/lualine.nvim',
-	dependencies = { 'nvim-tree/nvim-web-devicons' },
+	dependencies = {
+		'nvim-tree/nvim-web-devicons',
+		'AndreM222/copilot-lualine',
+	},
 	config = function ()
 		require('lualine').setup({
 			options = {
@@ -17,6 +20,14 @@ return {
 						"filename",
 						path = 1,
 					},
+				},
+				lualine_x = {
+					{
+						"copilot",
+						show_colors = true,
+					},
+					"encoding",
+					"filetype",
 				},
 			},
 		})
