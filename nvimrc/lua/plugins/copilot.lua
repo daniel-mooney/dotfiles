@@ -15,11 +15,11 @@ return {
 				auto_trigger = false,
 				debounce = 15,
 				keymap = {
-					accept = "<M-l>",
+					accept = "<M-p>",
 					next = "<M-]>",
 					prev = "<M-[",
 					dismiss = "<M-\\>",
-					toggle_auto_trigger = "<M-L>",
+					toggle_auto_trigger = "<M-P>",
 				},
 			},
 			nes = {
@@ -34,6 +34,6 @@ return {
 
 		-- Extra keybindings
 		local suggestions = require("copilot.suggestion")
-		vim.keymap.set("n", "<M-L>", suggestions.toggle_auto_trigger)
+		vim.keymap.set("n", "<M-P>", suggestions.toggle_auto_trigger)
 	end,
 }
