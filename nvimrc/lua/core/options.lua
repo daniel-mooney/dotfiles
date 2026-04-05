@@ -77,3 +77,12 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
 })
+
+------------------------------------
+--- Misc
+------------------------------------
+-- Open help and man in vertical window
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "help", "man" },
+    command = "wincmd L",
+})

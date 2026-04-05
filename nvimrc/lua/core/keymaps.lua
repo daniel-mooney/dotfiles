@@ -7,8 +7,8 @@ vim.g.maplocalleader = " "
 ------------------------------------
 
 -- System register operations
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])	-- Yank
-vim.keymap.set({"n", "v"}, "<leader>Y", [["+Y]])	-- Yank line
+-- vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])	-- Yank
+-- vim.keymap.set({"n", "v"}, "<leader>Y", [["+Y]])	-- Yank line
 vim.keymap.set("n", "<leader>p", [["+p]])			-- Put
 
 -- Registerless operations
