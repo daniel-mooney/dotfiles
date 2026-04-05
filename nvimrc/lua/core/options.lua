@@ -20,6 +20,13 @@ vim.o.wrap = true					-- Wrap lines
 vim.o.linebreak = true				-- Don't split words across lines (default: false)
 
 vim.o.scrolloff = 10				-- Min padding above/below cursor
+
+-- Open help and man in vertical window
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "help", "man" },
+    command = "wincmd L",
+})
+
 ---------------------------------------
 -- Typing
 ---------------------------------------
@@ -76,13 +83,4 @@ vim.diagnostic.config({
 --  Autoupdated buffers when re-focusing nvim. Important to track changes made externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
-})
-
-------------------------------------
---- Misc
-------------------------------------
--- Open help and man in vertical window
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "help", "man" },
-    command = "wincmd L",
 })
