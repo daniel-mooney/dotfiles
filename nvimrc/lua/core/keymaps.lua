@@ -6,11 +6,6 @@ vim.g.maplocalleader = " "
 -- Text manipulation
 ------------------------------------
 
--- System register operations
--- vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])	-- Yank
--- vim.keymap.set({"n", "v"}, "<leader>Y", [["+Y]])	-- Yank line
-vim.keymap.set("n", "<leader>p", [["+p]])			-- Put
-
 -- Registerless operations
 vim.keymap.set("x", "<leader>P", [["_dP]])			-- Put
 vim.keymap.set("n", "x", '"_x')						-- Char into the void
@@ -51,6 +46,7 @@ end, { desc = "Insert new line below the cursor" })
 vim.keymap.set("n", "<leader><CR>", function ()
 	vim.api.nvim_put({""}, "l", false, false)
 end, { desc = "Insert new line below the cursor" })
+
 ------------------------------------
 -- Navigation
 ------------------------------------
@@ -65,11 +61,6 @@ vim.keymap.set("n", "<leader>,", "<C-o>", { noremap = true })
 vim.keymap.set("n", "<leader>.", "<C-i>", { noremap = true })
 
 vim.keymap.set("n", "<leader>q", ":cclose<CR>", { desc = "Close quickfix menu" })
-
-vim.keymap.set("n", "<leader>x", ":Ex<CR>", { desc = "Open netrw in the current file's directory" })
-vim.keymap.set("n", "<leader>X", function ()
-	vim.cmd("Explore " .. vim.fn.getcwd())
-end, { desc = "Open netrw in the current working directory" })
 
 -- Jump to indentation level on empty line
 vim.keymap.set("n", "I", function ()

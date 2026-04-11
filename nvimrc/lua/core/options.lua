@@ -21,7 +21,7 @@ vim.o.linebreak = true				-- Don't split words across lines (default: false)
 
 vim.o.scrolloff = 10				-- Min padding above/below cursor
 
--- Open help and man in vertical window
+-- Open help and man in vertical window on the right
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "help", "man" },
     command = "wincmd L",
