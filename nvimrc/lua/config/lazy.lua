@@ -29,7 +29,6 @@ require("lazy").setup({
 		require('plugins.which_key'),
 		require('plugins.git'),
 		require('plugins.lualine'),
-		require('plugins.fterm'),
 		require('plugins.treesitter-context'),
 		require('plugins.neogen'),
 		require('plugins.oil'),
