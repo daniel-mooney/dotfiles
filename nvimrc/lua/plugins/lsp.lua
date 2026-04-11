@@ -118,6 +118,16 @@ return {
 				local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
 				vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
 			end, { desc = "Toggle inlay hints" })
+
+			vim.filetype.add({
+				extension = {
+					urdf = "xml",
+					xacro = "xml",
+					rviz = "yaml",
+					sdf = "xml",
+				},
+			})
+
 		end
 	},
 

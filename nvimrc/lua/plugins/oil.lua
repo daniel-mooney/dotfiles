@@ -10,8 +10,6 @@ return {
 	-- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
 	lazy = false,
 	config = function ()
-		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
 		local oil = require('oil')
 		oil.setup({
 			default_file_explorer = true,
@@ -23,5 +21,23 @@ return {
 			-- 	preview_split = "right",
 			-- },
 		})
+
+		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open oil in parent directory" })
+
+		-- -- Run on oil start up:
+		-- local ran = false
+		-- vim.api.nvim_create_autocmd("User", {
+		-- 	pattern = "OilEnter",
+		-- 	callback = function ()
+		-- 		if ran then return end
+		-- 		ran = true
+		--
+		-- 		-- Initially have preview open
+		-- 		local entry = oil.get_cursor_entry()
+		-- 		if entry then
+		-- 			oil.open_preview()
+		-- 		end
+		-- 	end
+		-- })
 	end
 }
