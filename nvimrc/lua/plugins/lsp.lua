@@ -27,6 +27,7 @@ return {
 					"clangd",		-- C/C++,
 					"cmake",
 					"basedpyright",
+					"lemminx",
 				},
 			})
 			-- Configure servers using Neovim 0.11+ API
@@ -98,6 +99,13 @@ return {
 				},
 			})
 
+			vim.lsp.config("lemminx", {
+				capabilities=capabilities,
+				filetypes = {
+					"xml","xsd", "xsl", "xslt", "svg", "urdf", "xacro", "sdf"
+				}
+			})
+
 			-- Enable them
 			vim.lsp.enable({
 				"lua_ls",
@@ -105,6 +113,7 @@ return {
 				"cmake",
 				"rust_analyzer",
 				"basedpyright",
+				"lemminx",
 			})
 
 			-- vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { silent = true })
@@ -121,13 +130,9 @@ return {
 
 			vim.filetype.add({
 				extension = {
-					urdf = "xml",
-					xacro = "xml",
 					rviz = "yaml",
-					sdf = "xml",
 				},
 			})
-
 		end
 	},
 }
