@@ -131,6 +131,7 @@ return {
 			vim.filetype.add({
 				extension = {
 					rviz = "yaml",
+					clangd = 'yaml',
 				},
 			})
 		end

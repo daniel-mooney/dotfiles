@@ -25,14 +25,21 @@ return {
 		})
 
 		-- Define keymappings for completion
-		local imap_expr = function(lhs, rhs)
-			vim.keymap.set('i', lhs, rhs, { expr = true })
-		end
+		vim.keymap.set('i', '<Tab>', function()
+			return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>'
+		end, { expr = true })
 
-		imap_expr('<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]])
-		imap_expr('<C-j>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]])
-		imap_expr('<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
-		imap_expr('<C-k>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
+		vim.keymap.set('i', '<S-Tab>', function()
+			return vim.fn.pumvisible() == 1 and '<C-p>' or '<Plug>(ShiftTab)'
+		end, { expr = true, remap = true })
+
+		vim.keymap.set('i', '<C-j>', function()
+			return vim.fn.pumvisible() == 1 and '<C-n>' or '<C-j>'
+		end, { expr = true })
+
+		vim.keymap.set('i', '<C-k>', function()
+			return vim.fn.pumvisible() == 1 and '<C-p>' or '<C-k>'
+		end, { expr = true })
 
 		-- <CR> behaviour function
 		local function cr_action()

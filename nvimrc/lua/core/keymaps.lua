@@ -56,6 +56,11 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")			-- Center cursor when searching
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set(
+	"i","<Plug>(ShiftTab)","<C-o>A",
+	{ desc = "Move to end of the current line", noremap = true }
+)
+
 -- Undo/Redo jumps
 vim.keymap.set("n", "<leader>,", "<C-o>", { noremap = true })
 vim.keymap.set("n", "<leader>.", "<C-i>", { noremap = true })
