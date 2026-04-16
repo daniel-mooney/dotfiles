@@ -6,6 +6,8 @@ export PATH="/home/daniel-mooney/.pixi/bin:$PATH"
 export PATH=/home/daniel-mooney/.opencode/bin:$PATH
 
 export NVM_DIR="$HOME/.config/nvm"
+
+# Required for copilot.lua to not break
 export PATH="$NVM_DIR/versions/node/v24.14.1/bin:$PATH"
 
 _lazy_load_nvm() {
