@@ -12,3 +12,8 @@ desc = "Go back to the previous directory"
 on = [ "m" ]
 run = "plugin relative-motions"
 desc = "Trigger a new relative motion"
+
+[[mgr.prepend_keymap]]
+on = "<C-o>"
+run = "shell --block 'nvim .'"
+desc = "Open the current directory in a new Neovim instance"
