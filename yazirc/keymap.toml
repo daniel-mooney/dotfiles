@@ -12,8 +12,3 @@ desc = "Go back to the previous directory"
 on = [ "m" ]
 run = "plugin relative-motions"
 desc = "Trigger a new relative motion"
-
-[[mgr.prepend_keymap]]
-on = "z"
-run = "plugin zoxide"
-desc = "Trigger zoxide plugin"
