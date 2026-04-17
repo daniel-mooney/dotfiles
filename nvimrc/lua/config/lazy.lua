@@ -35,6 +35,6 @@ require("lazy").setup({
 		require('plugins.vim-illuminate'),
 		require('plugins.mini'),
 		require('plugins.copilot'),
-		-- require('plugins.lazygit'),
+		require('plugins.harpoon'),
 	}
 })
