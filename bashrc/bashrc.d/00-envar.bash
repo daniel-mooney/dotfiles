@@ -1,7 +1,7 @@
 # Custom Environment Variables
 
 export VISUAL=nvim
-export EDITOR=nano
+export EDITOR=nvim
 
 
 # XDG Base Directory Spec
