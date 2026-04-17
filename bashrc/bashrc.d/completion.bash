@@ -1,10 +1,4 @@
-# fzf 0.44.x bash integration
-if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-  . /usr/share/doc/fzf/examples/key-bindings.bash
-fi
-if [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
-  . /usr/share/doc/fzf/examples/completion.bash
-fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
