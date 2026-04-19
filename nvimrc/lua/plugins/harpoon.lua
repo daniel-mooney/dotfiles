@@ -11,7 +11,53 @@ return {
 
 		harpoon:setup({})
 
-		-- Set keymaps
+		-- Telescope integration
+		local conf = require("telescope.config").values
+		local function toggle_telescope(harpoon_files)
+			local file_paths = {}
+			-- vim.api.nvim_echo({{"Harpoon files: " .. vim.inspect(harpoon_files)}}, false, {})
+			for _, item in ipairs(harpoon_files.items) do
+				-- Modify the inserted value to change telescope display
+				table.insert(file_paths, item.value)
+			end
+
+			require("telescope.pickers").new({}, {
+				prompt_title = "Harpoon",
+				finder = require("telescope.finders").new_table({
+					results = file_paths,
+				}),
+				previewer = conf.file_previewer({}),
+				sorter = conf.generic_sorter({}),
+			}):find()
+		end
+
+		-- Extensions
+		harpoon:extend({
+			ADD = function(list_item)
+				vim.notify(
+					"Add file harpoon to slot " .. list_item.idx,
+					vim.log.levels.INFO,
+					{
+						title = "Harpoon"
+					}
+				)
+				-- local x = vim.inspect(list_item)
+				-- vim.api.nvim_echo({{"Added to Harpoon: " .. x}}, false ,{})
+			end,
+			REMOVE = function(list_item)
+				vim.notify(
+					"Removed file harpoon " .. list_item.idx,
+					vim.log.levels.INFO,
+					{
+						title = "Harpoon"
+					}
+				)
+				-- local x = vim.inspect(list_item)
+				-- print("Removed from Harpoon:", x)
+			end
+		})
+
+		-- Keymappings
 		for i = 1, 9 do
 			local binding = ("<leader>%d"):format(i)
 			vim.keymap.set("n", binding, function() harpoon:list():select(i) end)
@@ -30,28 +76,21 @@ return {
 
 		vim.keymap.set("n", "<leader>hc", function()
 			harpoon:list():clear()
+			vim.notify(
+				"Cleared all harpoon files",
+				vim.log.levels.INFO,
+				{
+					title = "Harpoon"
+				}
+			)
 		end, { desc = "[H]arpoon [C]lear" })
 
-		-- Telescope integration
-		local conf = require("telescope.config").values
-		local function toggle_telescope(harpoon_files)
-			local file_paths = {}
-			for _, item in ipairs(harpoon_files.items) do
-				table.insert(file_paths, item.value)
-			end
+		vim.keymap.set("n", "<leader>hq", function()
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+		end, { desc = "[H]arpoon [Q]uick menu" })
 
-			require("telescope.pickers").new({}, {
-				prompt_title = "Harpoon",
-				finder = require("telescope.finders").new_table({
-					results = file_paths,
-				}),
-				previewer = conf.file_previewer({}),
-				sorter = conf.generic_sorter({}),
-			}):find()
-		end
-
-		vim.keymap.set("n", "<leader>hw", function()
+		vim.keymap.set("n", "<leader>ht", function()
 			toggle_telescope(harpoon:list())
-		end, { desc = "[H]arpoon [W]indow" })
+		end, { desc = "[H]arpoon [T]oggle Telescope" })
 	end
 }
