@@ -36,5 +36,6 @@ require("lazy").setup({
 		require('plugins.mini'),
 		require('plugins.copilot'),
 		require('plugins.harpoon'),
+		require('plugins.notify'),
 	}
 })
