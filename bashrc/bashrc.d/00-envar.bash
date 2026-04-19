@@ -1,8 +1,7 @@
 # Custom Environment Variables
-
 export VISUAL=nvim
 export EDITOR=nvim
-
+export MANPAGER="batcat -l man -p"
 
 # XDG Base Directory Spec
 export XDG_CONFIG_HOME="$HOME/.config"
