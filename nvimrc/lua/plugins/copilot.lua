@@ -14,26 +14,18 @@ return {
 				enabled = true,
 				auto_trigger = false,
 				debounce = 15,
-				keymap = {
-					accept = "<M-p>",
-					next = "<M-]>",
-					prev = "<M-[",
-					dismiss = "<M-\\>",
-					toggle_auto_trigger = "<M-P>",
-				},
 			},
 			nes = {
 				enabled = false,
-				keymap = {
-					accept_and_goto = "<leader>p",
-					accept = false,
-					dismiss = "<Esc>",
-				},
 			},
 		})
 
-		-- Extra keybindings
-		local suggestions = require("copilot.suggestion")
-		vim.keymap.set("n", "<M-P>", suggestions.toggle_auto_trigger)
+		local suggestion = require("copilot.suggestion")
+
+		vim.keymap.set("i", "<M-p>", suggestion.accept, { desc = "Accept Copilot suggestion" })
+		vim.keymap.set("i", "<M-]>", suggestion.next, { desc = "Next Copilot suggestion" })
+		vim.keymap.set("i", "<M-[>", suggestion.prev, { desc = "Previous Copilot suggestion" })
+		vim.keymap.set("i", "<M-\\>", suggestion.dismiss, { desc = "Dismiss Copilot suggestion" })
+		vim.keymap.set("i", "<M-P>", suggestion.toggle_auto_trigger, { desc = "Toggle Copilot auto trigger" })
 	end,
 }
