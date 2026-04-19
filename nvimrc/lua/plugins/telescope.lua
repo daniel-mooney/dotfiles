@@ -51,6 +51,7 @@ return {
 		})
 
 		telescope.load_extension('frecency')
+		telescope.load_extension('notify')
 
 		local builtin = require('telescope.builtin')
 
@@ -70,6 +71,7 @@ return {
 		vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 		vim.keymap.set('n', '<leader>s<leader>', builtin.resume, { desc = '[S]earch [R]esume' })
 		vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+		vim.keymap.set('n', '<leader>sn', telescope.extensions.notify.notify, { desc = "[S]earch [N]otifications"})
 
 		vim.keymap.set('n', '<leader>sm', function ()
 			require('telescope.builtin').man_pages({
