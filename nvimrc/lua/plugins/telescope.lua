@@ -2,12 +2,16 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = {
         'nvim-lua/plenary.nvim',
+		'nvim-telescope/telescope-frecency.nvim',
 		-- Improve sorting performance
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 		-- Add pretty icons
 		{ 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
 	config = function()
+		-- TODO: Added frecency like functionality for all pickers
+
+		local telescope = require('telescope')
 		local actions = require('telescope.actions')
 
 		local ignore_ft = {
@@ -17,7 +21,7 @@ return {
 			"__pycache__/", "%.pyc",
 		}
 
-		require('telescope').setup({
+		telescope.setup({
 			defaults = {
 				mappings = {
 					i = {
@@ -28,12 +32,35 @@ return {
 					}
 				},
 				file_ignore_patterns = ignore_ft,
+			},
+			extensions = {
+				frecency = {
+					show_scores = false,
+					show_unindexed = true,
+					ignore_patterns = ignore_ft,
+					matcher = "fuzzy",
+					scoring_function = function(recency, fzy_score)
+						local w_recency = 1
+						local w_fzf = 1
+
+						local score = (w_recency / (recency == 0 and 1 or recency)) - w_fzf / fzy_score
+						return score == -1 and -1.000001 or score
+					end
+				}
 			}
 		})
 
+		telescope.load_extension('frecency')
+
 		local builtin = require('telescope.builtin')
 
-		vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+		vim.keymap.set("n", "<leader>sf", function()
+			telescope.extensions.frecency.frecency({
+				workspace = "CWD",
+			})
+		end, { desc = "[S]earch [F]iles (frecency)" })
+
+		-- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 		vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = "[S]earch [G]it Files"})
 		vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 		vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
