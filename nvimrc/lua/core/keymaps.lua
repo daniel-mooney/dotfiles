@@ -53,6 +53,12 @@ end, { desc = "Insert new line below the cursor" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz")		-- Keep cursor centered when half page scrolling
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- Function/method navigation
+vim.keymap.set("n", "]]", "]]zt")
+vim.keymap.set("n", "[[", "[)[zt")
+vim.keymap.set("n", "]m", "]mzt")
+vim.keymap.set("n", "[m", "[mzt")
+
 vim.keymap.set("n", "n", "nzzzv")			-- Center cursor when searching
 vim.keymap.set("n", "N", "Nzzzv")
 
