@@ -55,7 +55,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Function/method navigation
 vim.keymap.set("n", "]]", "]]zt")
-vim.keymap.set("n", "[[", "[)[zt")
+vim.keymap.set("n", "[[", "[[zt")
 vim.keymap.set("n", "]m", "]mzt")
 vim.keymap.set("n", "[m", "[mzt")
 
