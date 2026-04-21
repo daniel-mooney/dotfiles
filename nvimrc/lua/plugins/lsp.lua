@@ -29,6 +29,7 @@ return {
 					"basedpyright",
 					"lemminx",
 				},
+				automatic_enable = false,
 			})
 			-- Configure servers using Neovim 0.11+ API
 			vim.lsp.config("lua_ls", {
@@ -61,12 +62,64 @@ return {
 				}
 			})
 
-			vim.lsp.config("clangd", {
-				capabilities = capabilities,
-				cmd = {
-					"clangd",
-					"--function-arg-placeholders=false",
-				}
+			-- Nvim LSP has no callback for modifying cmd.
+			-- Need to manually launch clangd
+
+			-- vim.lsp.config("clangd", {
+			-- 	capabilities = capabilities,
+			-- 	cmd = {
+			-- 		"clangd",
+			-- 		"--function-arg-placeholders=false",
+			-- 		"--compile-commands-dir=/home/daniel-mooney/Documents/Code/Embedded/stm32-rtos"
+			-- 	},
+			-- })
+
+			local function clangd_project_root(bufnr)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+
+				-- Root is a parent dir containing compile_commands or .git
+				local root = vim.fs.root(fname, {
+					"compile_commands.json",
+					".git",
+				})
+				if root then
+					return root
+				end
+
+				-- Second: if this file lives outside the project tree, reuse an existing
+				-- clangd project's root if one already exists.
+				for _, client in ipairs(vim.lsp.get_clients({ name = "clangd" })) do
+					if client.config.root_dir then
+						return client.config.root_dir
+					end
+				end
+
+				-- Last fallback. Root is CWD
+				return vim.fn.getcwd()
+			end
+
+			-- Launch clangd on certain files opening
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "c", "cpp", "objc", "objcpp", "arduino" },
+				callback = function(args)
+					local root = clangd_project_root(args.buf)
+					-- vim.notify("Starting clangd with root: "..root)
+					vim.lsp.start({
+						name = "clangd",
+						cmd = {
+							"clangd",
+							"--function-arg-placeholders=false",
+							"--compile-commands-dir=" .. root,
+						},
+						root_dir = root,
+
+						-- Important: reuse the existing clangd client for the same project root.
+						-- reuse_client = function(client, config)
+						-- 	return client.name == "clangd"
+						-- 		and client.config.root_dir == config.root_dir
+						-- end,
+					})
+				end,
 			})
 
 			vim.lsp.config("cmake", {
@@ -109,7 +162,7 @@ return {
 			-- Enable them
 			vim.lsp.enable({
 				"lua_ls",
-				"clangd",
+				-- "clangd",
 				"cmake",
 				"rust_analyzer",
 				"basedpyright",
