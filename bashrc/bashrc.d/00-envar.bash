@@ -1,7 +1,11 @@
 # Custom Environment Variables
 export VISUAL=nvim
 export EDITOR=nvim
-export MANPAGER="batcat -l man -p"
+
+# Need additional bat flags to fix broken color parsing and ^H bug
+# col is a text formatter
+export MANPAGER='sh -c "col -bx | batcat -l man -p"'
+export MANROFFOPT='-c' 
 
 # XDG Base Directory Spec
 export XDG_CONFIG_HOME="$HOME/.config"
