@@ -35,7 +35,7 @@ return {
 		harpoon:extend({
 			ADD = function(list_item)
 				vim.notify(
-					"Add file harpoon to slot " .. list_item.idx,
+					"Set harpoon " .. list_item.idx .. ": " .. list_item.item.value,
 					vim.log.levels.INFO,
 					{
 						title = "Harpoon"
@@ -46,7 +46,7 @@ return {
 			end,
 			REMOVE = function(list_item)
 				vim.notify(
-					"Removed file harpoon " .. list_item.idx,
+					"Removed harpoon " .. list_item.idx,
 					vim.log.levels.INFO,
 					{
 						title = "Harpoon"
