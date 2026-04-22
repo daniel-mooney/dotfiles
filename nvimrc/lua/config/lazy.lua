@@ -37,7 +37,7 @@ require("lazy").setup({
 		require('plugins.copilot'),
 		require('plugins.harpoon'),
 		require('plugins.notify'),
-		require('plugins.alpha'),
-		require('plugins.project')
+		-- require('plugins.alpha'),
+		-- require('plugins.project')
 	}
 })

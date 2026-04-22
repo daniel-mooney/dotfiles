@@ -1,3 +1,8 @@
+-- Bug: Some plugins require setup() to be called each time nvim is opened
+-- in a new directory. This is done when starting a new nvim instance. Changing
+-- working directories while remaining inside nvim bypasses this process
+-- and cause issues.
+
 return {
 	"ahmedkhalf/project.nvim",
 	dependencies = {

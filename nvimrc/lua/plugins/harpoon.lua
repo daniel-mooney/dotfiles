@@ -1,3 +1,6 @@
+-- BUG: Opening via projects or opening directly is interpreted as different
+-- buffers by Harpoon.
+
 return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
