@@ -27,5 +27,6 @@ return {
 		vim.keymap.set("i", "<M-[>", suggestion.prev, { desc = "Previous Copilot suggestion" })
 		vim.keymap.set("i", "<M-\\>", suggestion.dismiss, { desc = "Dismiss Copilot suggestion" })
 		vim.keymap.set("i", "<M-P>", suggestion.toggle_auto_trigger, { desc = "Toggle Copilot auto trigger" })
+		vim.keymap.set("n", "<M-P>", suggestion.toggle_auto_trigger, { desc = "Toggle Copilot auto trigger" })
 	end,
 }
