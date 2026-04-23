@@ -5,7 +5,7 @@ return {
 		--  timeout is a period of time between the end of the start and the
 		--  start of the end of the animation.
 		require('notify').setup({
-			timeout = 0,
+			timeout = 500,
 			-- stages = 'static',
 		})
 

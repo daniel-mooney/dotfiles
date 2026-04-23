@@ -99,8 +99,10 @@ return {
 			end
 
 			-- Launch clangd on certain files opening
+			local clang_ext = { "c", "cpp", "objc", "objcpp", "arduino" };
+
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "c", "cpp", "objc", "objcpp", "arduino" },
+				pattern = clang_ext,
 				callback = function(args)
 					local root = clangd_project_root(args.buf)
 					-- vim.notify("Starting clangd with root: "..root)
@@ -119,6 +121,14 @@ return {
 						-- 		and client.config.root_dir == config.root_dir
 						-- end,
 					})
+				end,
+			})
+
+			-- Format c 
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = clang_ext,
+				callback = function()
+					vim.lsp.buf.format({ async = false })
 				end,
 			})
 
@@ -169,11 +179,20 @@ return {
 				"lemminx",
 			})
 
+			vim.filetype.add({
+				extension = {
+					rviz = "yaml",
+					clangd = 'yaml',
+				},
+			})
+
+			-- Keymaps
+
 			-- vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { silent = true })
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
 
-			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename item" })
+			vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename item" })
 
 			vim.keymap.set("n", "<leader>li", function()
 				local bufnr = vim.api.nvim_get_current_buf()
@@ -181,12 +200,7 @@ return {
 				vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
 			end, { desc = "Toggle inlay hints" })
 
-			vim.filetype.add({
-				extension = {
-					rviz = "yaml",
-					clangd = 'yaml',
-				},
-			})
+			vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format File" })
 		end
 	},
 }
