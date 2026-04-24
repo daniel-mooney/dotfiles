@@ -99,7 +99,29 @@ return {
 			end
 
 			-- Launch clangd on certain files opening
-			local clang_ext = { "c", "cpp", "objc", "objcpp", "arduino" };
+			local clang_ext = {
+				"c","cpp", "objc", "objcpp","arduino", ".h", ".hh", ".hpp"
+			};
+
+			local function setup_clangd_keymaps(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if not client or client.name ~= "clangd" then return end
+
+				vim.keymap.set("n", "<leader>0", function()
+					local params = { uri = vim.uri_from_bufnr(0) }
+					vim.lsp.buf_request(0, "textDocument/switchSourceHeader", params, function(err, result)
+						if err then
+							vim.notify("Error: " .. err.message, vim.log.levels.ERROR)
+							return
+						end
+						if not result then
+							vim.notify("No corresponding file found", vim.log.levels.WARN)
+							return
+						end
+						vim.cmd("edit " .. vim.uri_to_fname(result))
+					end)
+				end, { desc = "Switch between source/header (clangd)", buffer = true })
+			end
 
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = clang_ext,
@@ -124,6 +146,13 @@ return {
 				end,
 			})
 
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if not client or client.name ~= "clangd" then return end
+					setup_clangd_keymaps(args)
+				end,
+			})
 			-- Format c 
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				pattern = clang_ext,
