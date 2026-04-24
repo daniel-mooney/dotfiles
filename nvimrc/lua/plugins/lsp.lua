@@ -103,13 +103,13 @@ return {
 				"c","cpp", "objc", "objcpp","arduino", ".h", ".hh", ".hpp"
 			};
 
-			local function setup_clangd_keymaps(args)
-				local client = vim.lsp.get_client_by_id(args.data.client_id)
-				if not client or client.name ~= "clangd" then return end
-
+			local function setup_clangd_keymaps()
 				vim.keymap.set("n", "<leader>0", function()
+					local clients = vim.lsp.get_clients({ bufnr = 0, name = "clangd" })
+					if #clients == 0 then return end
+
 					local params = { uri = vim.uri_from_bufnr(0) }
-					vim.lsp.buf_request(0, "textDocument/switchSourceHeader", params, function(err, result)
+					clients[1].request("textDocument/switchSourceHeader", params, function(err, result)
 						if err then
 							vim.notify("Error: " .. err.message, vim.log.levels.ERROR)
 							return
@@ -119,7 +119,7 @@ return {
 							return
 						end
 						vim.cmd("edit " .. vim.uri_to_fname(result))
-					end)
+					end, 0)
 				end, { desc = "Switch between source/header (clangd)", buffer = true })
 			end
 
@@ -150,7 +150,7 @@ return {
 				callback = function(args)
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					if not client or client.name ~= "clangd" then return end
-					setup_clangd_keymaps(args)
+					setup_clangd_keymaps()
 				end,
 			})
 			-- Format c 
