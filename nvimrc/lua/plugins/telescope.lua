@@ -19,6 +19,8 @@ return {
 			"target/", "%.lock$",
 			-- python
 			"__pycache__/", "%.pyc",
+			-- misc
+			".cache/", ".pio",
 		}
 
 		telescope.setup({
